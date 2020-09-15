@@ -23,7 +23,7 @@ Solution
 
 Intuition:
 
-We need to use dfs+backtracking method to solve this problem. Since the title clearly indicates that there may be duplicate numbers in the list, we need to prune when we dfs.
+We need to use dfs+backtracking method to solve this problem.
 
 Algorithm:
 
