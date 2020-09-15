@@ -70,6 +70,69 @@ private:
 };
 
 /*
+Code in Java:
+*/
+
+class Solution {
+    public List<List<Integer>> subsetsWithDup(int[] nums) {
+        List<List<Integer>> res = new ArrayList<>();
+        // sort
+        Arrays.sort(nums);
+        // dfs search
+        Deque<Integer> subset = new ArrayDeque<>(nums.length);
+        dfs(nums, 0, subset, res);
+        return res;
+    }
+    private void dfs(int[] nums, int k, Deque<Integer> subset, List<List<Integer>> res) {
+        // The current combination is stored in res
+        res.add(new ArrayList<>(subset));
+        // Add an element to subset
+        for (int i = k; i < nums.length; ++i) {
+            // pruning
+            if (i != k && nums[i] == nums[i - 1]){
+                continue;
+            }
+            subset.addLast(nums[i]);
+            // Next level search
+            dfs(nums, i + 1, subset, res);
+            // backtracking
+            subset.removeLast();
+        }
+    }
+}
+
+/*
+Code in Python
+*/
+
+class Solution(object):
+    def subsetsWithDup(self, nums):
+        """
+        :type nums: List[int]
+        :rtype: List[List[int]]
+        """
+        res = []
+        # Sort
+        nums.sort()
+        # dfsSearch
+        self.dfs(nums, 0, [], res)
+        return res
+        
+    def dfs(self, nums, k, subset, res):
+        # The current portfolio is stored in res
+        res.append(subset[:])
+        # Add an element to subset
+        for i in range(k, len(nums)):
+            # Pruning
+            if (i != k and nums[i] == nums[i - 1]):
+                continue
+            subset.append(nums[i])
+            # Next level search
+            self.dfs(nums, i + 1, subset, res)
+            # Backtrack
+            del subset[-1]
+            
+/*           
 Complexity Analysis
 
 Time complexity: O(n ∗ 2n), Where n is nums the length. Generate all subsets and copy them to the output set. 
